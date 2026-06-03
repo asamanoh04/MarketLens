@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+wheels/
+pip-wheel-metadata/
+.installed.cfg
+
+# Entornos virtuales
+venv/
+env/
+.env
+.venv
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Datos crudos y procesados (son pesados, no van en git)
+data/raw/
+data/processed/
+
+# Modelos entrenados (son pesados)
+models/*.pkl
+models/*.joblib
+models/*.h5
+
+# Variables de entorno y API keys (NUNCA subir esto)
+.env
+*.env
+secrets.yaml
+api_keys.yaml
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
