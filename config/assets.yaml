@@ -1,0 +1,47 @@
+# Activos monitoreados por MarketLens
+# Para agregar uno nuevo: copia un bloque y cambia simbolo y nombre
+# activo: false = lo descarga pero no lo analiza
+
+criptomonedas:
+  - simbolo: BTC-USD
+    nombre: Bitcoin
+    activo: true
+
+  - simbolo: ETH-USD
+    nombre: Ethereum
+    activo: true
+
+  - simbolo: SOL-USD
+    nombre: Solana
+    activo: true
+
+forex:
+  - simbolo: EURUSD=X
+    nombre: Euro / Dólar
+    activo: true
+
+  - simbolo: MXN=X
+    nombre: Peso / Dólar
+    activo: true
+
+  - simbolo: JPYMXN=X
+    nombre: Yen / Peso
+    activo: true
+
+indices:
+  - simbolo: ^GSPC
+    nombre: S&P 500
+    activo: true
+
+  - simbolo: ^IXIC
+    nombre: NASDAQ
+    activo: true
+
+acciones:
+  - simbolo: AAPL
+    nombre: Apple
+    activo: true
+
+  - simbolo: TSLA
+    nombre: Tesla
+    activo: true

@@ -1,0 +1,23 @@
+# Estrategias de trading personales
+# Ir llenando conforme avances en el curso
+# 
+# Estructura de cada estrategia:
+# - nombre: nombre de la estrategia
+#   descripcion: qué hace
+#   activos: en qué mercados aplica (cripto, forex, acciones, indices)
+#   timeframe: en qué tiempo opera (1min, 5min, 1hr, 1dia)
+#   entrada: condiciones para comprar
+#   salida: condiciones para vender
+#   activa: true/false
+
+estrategias: []
+# Ejemplo (descomentar cuando tengas tu primera estrategia):
+#
+# estrategias:
+#   - nombre: Mi primera estrategia
+#     descripcion: descripcion breve
+#     activos: [BTC-USD, AAPL]
+#     timeframe: 1dia
+#     entrada: cuando X sucede
+#     salida: cuando Y sucede
+#     activa: true
