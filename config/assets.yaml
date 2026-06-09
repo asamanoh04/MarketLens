@@ -1,47 +1,58 @@
 # Activos monitoreados por MarketLens
 # Para agregar uno nuevo: copia un bloque y cambia simbolo y nombre
 # activo: false = lo descarga pero no lo analiza
+# periodo = cuánto histórico bajar (max, 5y, 2y, 1y, etc.)
 
 criptomonedas:
   - simbolo: BTC-USD
     nombre: Bitcoin
     activo: true
+    periodo: max
 
   - simbolo: ETH-USD
     nombre: Ethereum
     activo: true
+    periodo: max
 
   - simbolo: SOL-USD
     nombre: Solana
     activo: true
+    periodo: max
 
 forex:
   - simbolo: EURUSD=X
     nombre: Euro / Dólar
     activo: true
+    periodo: max
 
   - simbolo: MXN=X
     nombre: Peso / Dólar
     activo: true
+    periodo: max
 
   - simbolo: JPYMXN=X
     nombre: Yen / Peso
     activo: true
+    periodo: 2y
 
 indices:
   - simbolo: ^GSPC
     nombre: S&P 500
     activo: true
+    periodo: max
 
   - simbolo: ^IXIC
     nombre: NASDAQ
     activo: true
+    periodo: max
 
 acciones:
   - simbolo: AAPL
     nombre: Apple
     activo: true
+    periodo: max
 
   - simbolo: TSLA
     nombre: Tesla
     activo: true
+    periodo: max
