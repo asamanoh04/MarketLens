@@ -70,3 +70,19 @@ Agregarla en `config/strategies.yaml` con:
 ### Objetivo
 Que el dashboard muestre alertas y recomendaciones basadas
 en MIS estrategias aprendidas, no en estrategias genéricas.
+
+## Estado actual del proyecto
+- Fase 1 en progreso — ingesta de datos funcionando
+- 10 activos descargados con 1 año de datos en data/raw/
+- Pendiente: re-descargar con periodo "max" cuando Yahoo desbloquee IP
+- Siguiente paso: limpieza y transformación de datos (Fase 2)
+
+## Notas técnicas
+- Yahoo Finance bloquea por rate limit si se corre ingesta muy seguido
+- Solución: time.sleep(8) entre descargas y esperar entre intentos
+- Python 3.9 en venv — yfinance fijado en 0.2.54 por compatibilidad
+
+## Curso en progreso
+- Curso Capitaria de análisis técnico (5 videos)
+- Notas en estrategias/capitaria/notas.md
+- Estrategias se agregarán a config/strategies.yaml al terminar el curso
