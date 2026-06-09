@@ -8,16 +8,19 @@ criptomonedas:
     nombre: Bitcoin
     activo: true
     periodo: max
+    binance_simbolo: BTCUSDT
 
   - simbolo: ETH-USD
     nombre: Ethereum
     activo: true
     periodo: max
+    binance_simbolo: ETHUSDT
 
   - simbolo: SOL-USD
     nombre: Solana
     activo: true
     periodo: max
+    binance_simbolo: SOLUSDT
 
 forex:
   - simbolo: EURUSD=X
@@ -36,13 +39,13 @@ forex:
     periodo: 2y
 
 indices:
-  - simbolo: ^GSPC
-    nombre: S&P 500
+  - simbolo: SPY
+    nombre: S&P 500 (ETF SPY)
     activo: true
     periodo: max
 
-  - simbolo: ^IXIC
-    nombre: NASDAQ
+  - simbolo: QQQ
+    nombre: NASDAQ (ETF QQQ)
     activo: true
     periodo: max
 

@@ -73,14 +73,27 @@ en MIS estrategias aprendidas, no en estrategias genéricas.
 
 ## Estado actual del proyecto
 - Fase 1 en progreso — ingesta de datos funcionando
-- 10 activos descargados con 1 año de datos en data/raw/
-- Pendiente: re-descargar con periodo "max" cuando Yahoo desbloquee IP
+- 10 activos descargados en data/raw/ (se abandonó Yahoo Finance por bloqueos)
+- Cripto (BTC/ETH/SOL): Binance, historial OHLCV completo desde 2017
+- Forex (EURUSD/MXN/JPYMXN): Alpha Vantage full, historial largo (~años)
+- Acciones/índices (AAPL/TSLA/SPY/QQQ): Alpha Vantage compact (~100 días)
+- Pendiente: bajar historial largo de acciones/índices manualmente como CSV
 - Siguiente paso: limpieza y transformación de datos (Fase 2)
 
 ## Notas técnicas
-- Yahoo Finance bloquea por rate limit si se corre ingesta muy seguido
-- Solución: time.sleep(8) entre descargas y esperar entre intentos
-- Python 3.9 en venv — yfinance fijado en 0.2.54 por compatibilidad
+- Fuentes de datos: Binance (cripto, sin API key) + Alpha Vantage (lo demás)
+- Alpha Vantage gratis: 25 llamadas/día, 1 req/seg. API key en .env como
+  ALPHA_VANTAGE_KEY
+- outputsize="full" es premium en acciones/índices (TIME_SERIES_DAILY) → usar
+  "compact" (~100 días). Pero en forex (FX_DAILY) "full" SÍ es gratis y da
+  historial largo, así que ahí sí se usa "full"
+- Índices: Alpha Vantage no acepta notación Yahoo (^GSPC/^IXIC); se usan ETFs
+  proxy: S&P 500 → SPY, NASDAQ → QQQ
+- Forex: en notación Yahoo, símbolo de una sola moneda (MXN=X) tiene base USD
+- time.sleep(5) entre descargas para respetar el límite de Alpha Vantage
+- Columnas NO homogéneas entre fuentes: Binance da open/high/low/close/volume;
+  Alpha Vantage da "1. open", "2. high", etc. Normalizarlas es el 1er paso de Fase 2
+- Python 3.9 en venv. yfinance ya no se usa (reemplazado por Binance + Alpha Vantage)
 
 ## Curso en progreso
 - Curso Capitaria de análisis técnico (5 videos)
