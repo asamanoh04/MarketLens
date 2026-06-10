@@ -52,3 +52,10 @@ desktop.ini
 
 # Logs
 *.log
+
+# PDFs del curso
+estrategias/**/*.pdf
+
+# Metadatos de Windows
+*.Identifier
+*Zone.Identifier
