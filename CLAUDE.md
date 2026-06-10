@@ -6,31 +6,69 @@ cripto, forex, acciones e índices. Incluye ingesta de APIs,
 limpieza de datos, EDA, minería de datos, ML predictivo y
 dashboard interactivo.
 
+## Arquitectura de inteligencia — Visión completa
+MarketLens no es solo un predictor de precios. Es un sistema de análisis
+de mercados financieros con tres capas de inteligencia que trabajan juntas:
+
+**Capa 1 — Modelos de ML con features de análisis técnico**
+Múltiples modelos entrenados con features derivados de análisis técnico:
+soportes, resistencias, patrones de velas, indicadores cuantitativos.
+Cada modelo ve el mercado desde una perspectiva estadística diferente.
+Ningún modelo individual toma decisiones solo.
+
+**Capa 2 — Sistema de votación con metamodelo**
+Los modelos individuales votan. Un metamodelo aprende cuándo cada modelo
+individual es más confiable según las condiciones del mercado. Por ejemplo:
+modelo A es mejor en mercados trending, modelo B en mercados laterales.
+El metamodelo decide a quién escuchar según el contexto actual.
+
+**Capa 3 — Análisis independiente de Claude**
+Claude analiza el mercado sin conocer las predicciones de los modelos
+para evitar sesgos. Recibe datos crudos, noticias y contexto macro y da
+su propia lectura. Solo al final se comparan ambas señales. Si Claude y
+los modelos coinciden, la señal es fuerte. Si divergen, es señal de cautela.
+
+**Capa transversal — Backtesting continuo**
+Todo se valida contra datos históricos antes de usarse en tiempo real.
+Las estrategias del curso se prueban estadísticamente. Los modelos se
+evalúan en períodos que no vieron durante el entrenamiento.
+
+**Principio de diseño:**
+El sistema nunca dice "compra" o "vende" con certeza. Dice "bajo estas
+condiciones históricas, esta configuración de señales ha resultado en X
+con Y% de confianza". La decisión final siempre es humana.
+
 ## Stack tecnológico
-- Lenguaje: Python 3
+- Lenguaje: Python 3.9 en venv
 - Entorno: WSL2 Ubuntu 20.04 + VSCode
 - Control de versiones: Git + GitHub (asamanoh04/MarketLens)
 
 ## Activos monitoreados
 - Cripto: BTC, ETH, SOL
 - Forex: EUR/USD, USD/MXN, JPY/MXN
-- Índices: S&P500, NASDAQ
-- Acciones: AAPL, TSLA (expandible)
+- Índices: SPY (S&P500), QQQ (NASDAQ)
+- Acciones: AAPL, TSLA (expandible via config/assets.yaml)
 
 ## Estructura del proyecto
-- `data/` — datos crudos y procesados
+- `data/raw/` — datos crudos descargados de APIs, nunca modificar
+- `data/processed/` — datos limpios y normalizados
 - `src/` — código fuente principal
-- `notebooks/` — análisis exploratorio
-- `dashboard/` — visualización interactiva
+- `notebooks/` — análisis exploratorio (EDA)
+- `dashboard/` — visualización interactiva con Plotly/Dash
 - `models/` — modelos entrenados de ML
 - `tests/` — pruebas unitarias
+- `config/` — assets.yaml y strategies.yaml
+- `estrategias/` — notas y PDFs de cursos de trading
+- `docs/` — documentación de arquitectura y decisiones
 
 ## Fases del proyecto
-1. Ingesta de datos via APIs
-2. Pipeline de limpieza y transformación
+1. Ingesta de datos via APIs ← COMPLETADA
+2. Pipeline de limpieza y transformación ← SIGUIENTE
 3. EDA y minería de datos
-4. Modelo de ML predictivo
-5. Dashboard interactivo con Plotly/Dash
+4. Feature engineering con estrategias del curso
+5. Modelos de ML + sistema de votación + metamodelo
+6. Backtesting de estrategias
+7. Dashboard interactivo con Plotly/Dash
 
 ## Perfil del desarrollador
 - 4 años de experiencia en Java, Python, SQL, Bash, Git
@@ -44,58 +82,45 @@ dashboard interactivo.
 - Un archivo, una responsabilidad
 - Código limpio con comentarios en español
 - Antes de crear algo nuevo, revisar si ya existe
+- Nunca modificar archivos en data/raw/
 
 ## Cómo agregar un activo nuevo
 Solo agregarlo en `config/assets.yaml` con su símbolo y tipo.
 El sistema lo detecta automáticamente.
 
-## Contexto adicional
-- Sin API de Anthropic por ahora, usar librerías gratuitas para NLP
-- Priorizar que el código sea legible sobre que sea óptimo
-- Este proyecto es para aprender, no para producción
-
 ## Estrategias de Trading Personales
-Estoy tomando un curso de bolsa y day trading. Conforme aprenda
-nuevas estrategias las voy a documentar aquí para que el sistema
-las use como base para sus recomendaciones.
+Tomando curso Capitaria de análisis técnico (5 videos) y curso TJR.
+Conforme se aprenden estrategias se documentan en:
+- `estrategias/capitaria/notas.md`
+- `estrategias/TJR/notas.md`
 
-### Cómo agregar una estrategia nueva
-Agregarla en `config/strategies.yaml` con:
+Las estrategias finales se agregan a `config/strategies.yaml` con:
 - Nombre de la estrategia
 - Condiciones de entrada (cuándo comprar)
 - Condiciones de salida (cuándo vender)
 - Activos donde aplica
 - Timeframe (1min, 5min, 1hr, 1día)
-
-### Objetivo
-Que el dashboard muestre alertas y recomendaciones basadas
-en MIS estrategias aprendidas, no en estrategias genéricas.
+- Fuente (de qué curso viene)
 
 ## Estado actual del proyecto
-- Fase 1 en progreso — ingesta de datos funcionando
-- 10 activos descargados en data/raw/ (se abandonó Yahoo Finance por bloqueos)
-- Cripto (BTC/ETH/SOL): Binance, historial OHLCV completo desde 2017
-- Forex (EURUSD/MXN/JPYMXN): Alpha Vantage full, historial largo (~años)
+- Fase 1 COMPLETADA
+- Cripto (BTC/ETH/SOL): Binance, OHLCV completo desde 2017
+- Forex (EURUSD/MXN/JPYMXN): Alpha Vantage full, historial largo
 - Acciones/índices (AAPL/TSLA/SPY/QQQ): Alpha Vantage compact (~100 días)
-- Pendiente: bajar historial largo de acciones/índices manualmente como CSV
-- Siguiente paso: limpieza y transformación de datos (Fase 2)
+- Pendiente: bajar historial largo de acciones/índices como CSV manual
+- Siguiente paso: Fase 2 — limpieza y normalización de columnas
 
 ## Notas técnicas
-- Fuentes de datos: Binance (cripto, sin API key) + Alpha Vantage (lo demás)
-- Alpha Vantage gratis: 25 llamadas/día, 1 req/seg. API key en .env como
-  ALPHA_VANTAGE_KEY
-- outputsize="full" es premium en acciones/índices (TIME_SERIES_DAILY) → usar
-  "compact" (~100 días). Pero en forex (FX_DAILY) "full" SÍ es gratis y da
-  historial largo, así que ahí sí se usa "full"
-- Índices: Alpha Vantage no acepta notación Yahoo (^GSPC/^IXIC); se usan ETFs
-  proxy: S&P 500 → SPY, NASDAQ → QQQ
-- Forex: en notación Yahoo, símbolo de una sola moneda (MXN=X) tiene base USD
-- time.sleep(5) entre descargas para respetar el límite de Alpha Vantage
-- Columnas NO homogéneas entre fuentes: Binance da open/high/low/close/volume;
-  Alpha Vantage da "1. open", "2. high", etc. Normalizarlas es el 1er paso de Fase 2
-- Python 3.9 en venv. yfinance ya no se usa (reemplazado por Binance + Alpha Vantage)
+- Fuentes: Binance (cripto, sin API key) + Alpha Vantage (lo demás)
+- Alpha Vantage gratis: 25 llamadas/día. API key en .env como ALPHA_VANTAGE_KEY
+- outputsize="full" gratis solo en forex. Acciones/índices usan "compact"
+- Índices: Alpha Vantage no acepta ^GSPC/^IXIC, se usan ETFs proxy SPY/QQQ
+- Forex MXN=X significa USD/MXN (base USD para símbolos de una sola moneda)
+- time.sleep(5) entre descargas para respetar límite de Alpha Vantage
+- Columnas NO homogéneas entre fuentes, normalizar en Fase 2
+- yfinance y pycoingecko eliminados, reemplazados por Binance + Alpha Vantage
 
-## Curso en progreso
-- Curso Capitaria de análisis técnico (5 videos)
-- Notas en estrategias/capitaria/notas.md
-- Estrategias se agregarán a config/strategies.yaml al terminar el curso
+## Contexto adicional
+- Sin API de Anthropic por ahora
+- Priorizar código legible sobre código óptimo
+- Este proyecto es para aprender, no para producción
