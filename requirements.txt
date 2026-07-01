@@ -92,7 +92,6 @@ propcache==0.4.1
 psutil==7.2.2
 ptyprocess==0.7.0
 pure-eval==0.2.3
-pycoingecko==3.2.0
 pycparser==2.23
 pycryptodome==3.23.0
 pygments==2.20.0
@@ -134,5 +133,4 @@ websockets==15.0.1
 werkzeug==3.1.8
 widgetsnbextension==4.0.15
 yarl==1.22.0
-yfinance==0.2.54
 zipp==3.23.1

@@ -33,29 +33,40 @@ forex:
     activo: true
     periodo: max
 
-  - simbolo: JPYMXN=X
-    nombre: Yen / Peso
+  - simbolo: JPY=X
+    nombre: Dólar / Yen
     activo: true
-    periodo: 2y
+    periodo: max
 
+# acciones/indices: historial largo se baja a mano de Stooq (navegador)
+# stooq_simbolo = qué buscar en stooq.com | archivo_manual = nombre del CSV
+# que se descarga, debe quedar en data/raw/manual/
 indices:
   - simbolo: SPY
     nombre: S&P 500 (ETF SPY)
     activo: true
     periodo: max
+    stooq_simbolo: SPY.US
+    archivo_manual: spy_us_d.csv
 
   - simbolo: QQQ
     nombre: NASDAQ (ETF QQQ)
     activo: true
     periodo: max
+    stooq_simbolo: QQQ.US
+    archivo_manual: qqq_us_d.csv
 
 acciones:
   - simbolo: AAPL
     nombre: Apple
     activo: true
     periodo: max
+    stooq_simbolo: AAPL.US
+    archivo_manual: aapl_us_d.csv
 
   - simbolo: TSLA
     nombre: Tesla
     activo: true
     periodo: max
+    stooq_simbolo: TSLA.US
+    archivo_manual: tsla_us_d.csv

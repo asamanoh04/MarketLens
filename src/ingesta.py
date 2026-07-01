@@ -18,6 +18,10 @@ load_dotenv()
 RAIZ = Path(__file__).parent.parent
 CONFIG = RAIZ / "config" / "assets.yaml"
 DATOS_CRUDOS = RAIZ / "data" / "raw"
+# Acciones/índices: el historial largo no hay fuente gratis automática,
+# se baja a mano de Stooq (el navegador resuelve su muro anti-bot) y los
+# CSV originales viven aquí. Ver data/raw/manual/README.md.
+DATOS_MANUALES = DATOS_CRUDOS / "manual"
 
 
 def cargar_activos():
@@ -103,12 +107,49 @@ def descargar_tradicional(activo):
             to_symbol=to_currency,
             outputsize="full"
         )
+        # Alpha Vantage entrega forex de más reciente a más antiguo; lo
+        # invertimos para que todos los CSV queden de viejo a nuevo como
+        # cripto (Binance) y acciones/índices (Stooq).
+        df = df.sort_index()
 
     if df is None or df.empty:
         print(f"  ADVERTENCIA: No se encontraron datos para {simbolo}")
         return None
 
     archivo = DATOS_CRUDOS / f"{simbolo.replace('=X', '').replace('^', '')}.csv"
+    df.to_csv(archivo)
+    print(f"  OK: {archivo.name} — {len(df)} registros")
+    return df
+
+
+def cargar_acciones_indices(activo):
+    nombre = activo["nombre"]
+    simbolo = activo["simbolo"]
+    archivo_manual = activo["archivo_manual"]
+
+    print(f"Cargando {nombre} ({simbolo}) desde CSV manual...")
+
+    # No hay fuente gratis automática con historial completo para acciones e
+    # índices (Alpha Vantage 'full' es premium, Stooq y yfinance se bloquean).
+    # El CSV se baja a mano de Stooq desde el navegador y se guarda en
+    # data/raw/manual/. Aquí solo lo leemos y lo normalizamos.
+    origen = DATOS_MANUALES / archivo_manual
+    if not origen.exists():
+        print(f"  ADVERTENCIA: falta {archivo_manual} en data/raw/manual/ — "
+              f"bájalo de Stooq ({activo.get('stooq_simbolo', simbolo)})")
+        return None
+
+    # Stooq entrega columnas: Date, Open, High, Low, Close, Volume.
+    df = pd.read_csv(origen, parse_dates=["Date"], index_col="Date")
+
+    if df.empty:
+        print(f"  ADVERTENCIA: {archivo_manual} está vacío")
+        return None
+
+    # Lo dejamos de más antiguo a más reciente, como las otras fuentes.
+    df = df.sort_index()
+
+    archivo = DATOS_CRUDOS / f"{simbolo.replace('^', '')}.csv"
     df.to_csv(archivo)
     print(f"  OK: {archivo.name} — {len(df)} registros")
     return df
@@ -121,16 +162,26 @@ def descargar_todos():
     resultados = {}
     for activo in activos:
         try:
-            if activo["categoria"] == "criptomonedas":
+            categoria = activo["categoria"]
+            if categoria == "criptomonedas":
                 df = descargar_cripto(activo)
-            else:
+            elif categoria == "forex":
                 df = descargar_tradicional(activo)
+            elif categoria in ("acciones", "indices"):
+                df = cargar_acciones_indices(activo)
+            else:
+                print(f"  ADVERTENCIA: categoría desconocida '{categoria}' para {activo['simbolo']}")
+                df = None
 
             if df is not None:
                 resultados[activo["simbolo"]] = df
         except Exception as e:
             print(f"  ERROR descargando {activo['simbolo']}: {e}")
-        time.sleep(5)
+
+        # Solo las fuentes con API (Binance, Alpha Vantage) necesitan pausa
+        # por límite de requests; las acciones/índices se leen del disco.
+        if categoria in ("criptomonedas", "forex"):
+            time.sleep(5)
 
     print(f"\nDescarga completa — {len(resultados)} activos descargados")
     return resultados

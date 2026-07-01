@@ -45,7 +45,7 @@ con Y% de confianza". La decisión final siempre es humana.
 
 ## Activos monitoreados
 - Cripto: BTC, ETH, SOL
-- Forex: EUR/USD, USD/MXN, JPY/MXN
+- Forex: EUR/USD, USD/MXN, USD/JPY
 - Índices: SPY (S&P500), QQQ (NASDAQ)
 - Acciones: AAPL, TSLA (expandible via config/assets.yaml)
 
@@ -105,17 +105,18 @@ Las estrategias finales se agregan a `config/strategies.yaml` con:
 ## Estado actual del proyecto
 - Fase 1 COMPLETADA
 - Cripto (BTC/ETH/SOL): Binance, OHLCV completo desde 2017
-- Forex (EURUSD/MXN/JPYMXN): Alpha Vantage full, historial largo
-- Acciones/índices (AAPL/TSLA/SPY/QQQ): Alpha Vantage compact (~100 días)
-- Pendiente: bajar historial largo de acciones/índices como CSV manual
+- Forex (EURUSD/USDMXN/USDJPY): Alpha Vantage full, historial largo
+- Acciones/índices (AAPL/TSLA/SPY/QQQ): CSV manual de Stooq, historial largo
+  (los 4 CSV ya están en data/raw/manual/)
 - Siguiente paso: Fase 2 — limpieza y normalización de columnas
 
 ## Notas técnicas
 - Fuentes: Binance (cripto, sin API key) + Alpha Vantage (lo demás)
 - Alpha Vantage gratis: 25 llamadas/día. API key en .env como ALPHA_VANTAGE_KEY
-- outputsize="full" gratis solo en forex. Acciones/índices usan "compact"
+- outputsize="full" gratis solo en forex. Acciones/índices NO usan Alpha
+  Vantage: su historial largo se baja a mano de Stooq (ver data/raw/manual/README.md)
 - Índices: Alpha Vantage no acepta ^GSPC/^IXIC, se usan ETFs proxy SPY/QQQ
-- Forex MXN=X significa USD/MXN (base USD para símbolos de una sola moneda)
+- Forex MXN=X significa USD/MXN y JPY=X significa USD/JPY (base USD para símbolos de una sola moneda)
 - time.sleep(5) entre descargas para respetar límite de Alpha Vantage
 - Columnas NO homogéneas entre fuentes, normalizar en Fase 2
 - yfinance y pycoingecko eliminados, reemplazados por Binance + Alpha Vantage
