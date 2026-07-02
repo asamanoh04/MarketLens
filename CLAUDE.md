@@ -106,15 +106,23 @@ Las estrategias finales se agregan a `config/strategies.yaml` con:
 - Fase 1 COMPLETADA
 - Cripto (BTC/ETH/SOL): Binance, OHLCV completo desde 2017
 - Forex (EURUSD/USDMXN/USDJPY): Alpha Vantage full, historial largo
-- Acciones/índices (AAPL/TSLA/SPY/QQQ): CSV manual de Stooq, historial largo
-  (los 4 CSV ya están en data/raw/manual/)
+- Acciones/índices (AAPL/TSLA/SPY/QQQ): historial largo de Stooq (semilla
+  manual, ya en data/raw/manual/) + días nuevos de Alpha Vantage compact
+- Actualización incremental: correr `python src/ingesta.py` re-baja y hace
+  merge por fecha (guardar_merge); se ejecuta manual cuando se quiera
 - Siguiente paso: Fase 2 — limpieza y normalización de columnas
 
 ## Notas técnicas
 - Fuentes: Binance (cripto, sin API key) + Alpha Vantage (lo demás)
 - Alpha Vantage gratis: 25 llamadas/día. API key en .env como ALPHA_VANTAGE_KEY
-- outputsize="full" gratis solo en forex. Acciones/índices NO usan Alpha
-  Vantage: su historial largo se baja a mano de Stooq (ver data/raw/manual/README.md)
+- outputsize="full" gratis solo en forex. Acciones/índices usan Alpha Vantage
+  "compact" (~100 días) SOLO para actualizar; el historial profundo viene de
+  Stooq como semilla de una vez (ver data/raw/manual/README.md)
+- guardar_merge() pega lo nuevo sobre lo que hay en disco, quita fechas
+  duplicadas (gana el dato más reciente) y ordena de viejo a nuevo. Por eso
+  re-correr ingesta.py es idempotente y nunca borra la historia profunda
+- Presupuesto Alpha Vantage por corrida: 3 forex (full) + 4 acciones (compact)
+  = 7 de 25 llamadas/día
 - Índices: Alpha Vantage no acepta ^GSPC/^IXIC, se usan ETFs proxy SPY/QQQ
 - Forex MXN=X significa USD/MXN y JPY=X significa USD/JPY (base USD para símbolos de una sola moneda)
 - time.sleep(5) entre descargas para respetar límite de Alpha Vantage
