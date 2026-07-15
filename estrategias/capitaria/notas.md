@@ -187,6 +187,23 @@ dobles techos y triángulos.
 ### Estrategias y conceptos clave
 <!-- Escribe aquí tus notas del video y PDF -->
 
+Patrones de cambio de tendencia: son patrones que cuando los analizamos nos dan a entender que va a cambiar la tendencia.
+
+Primero: Bump and Run (Golpe y Corre): Existe una tendencia, arriba o abajo. En este caso para explicar es alcista, si la tendencia viene subiendo pero luego sube con mas rapidez. Como por ejemplo, vienes acelerando con un coche, pero si le pisas mas al pedal aceleras con mas velocidad, por lo que vas mas rapido pero se te va a acabar la gasolina mas rapido, esa es la idea. Primero comienza la tendencia de manera ordenada, despues tiene un crecimiento mas rapido, pero despues la velocidad de crecimiento es menor a la velocidad de crecimiento rapido, entonces es momento de salir/vender (aceleras - aceleras mas rapido -  se acaba la gas ya no puedes acelerar tan rapido).
+
+1. Patron Hombro-Cabeza-Hombro: 
+Aunque si es eficiente, puede llegar a veces ser muy tarde. Conclusion: no siempre dejarse guiar por solo un patron, si no tomar en cuenta varias cosas para poder hacer tu analisis correcto.
+
+La tendencia creciente esta determinada por los minimos, pero la fortaleza de la tendencia esta definida por los maximos.
+
+2. Patron Invertido Hombro-Cabeza-Hombro: 
+Igual que el normal, funciona pero no solo te dejes guiar por esto, basarte en las tendencias, y sus cambios.
+
+3. Patron Cuña Decreciente (Falling Wedge?): Mercado va hacia abajo, tendencia decreciente. Hay correcion en contra de la tendencia, menos de 1/3 de la bajada. Los maximos van bajando entonces es tendencia decreciente, los minimos igual son menores entonces si tendencia decreciente. Pero si por ejemplo marcamos 3 maximos y 3 minimos, cada uno menor que el anterior. si trazas una linea de los 3 maximos, y otra linea para los 3 minimos, vas viendo como el espacio entre lineas se hace menor y en algun momento se van a tocar. La fortaleza de la tendencia decreciente esta bajando. Se esta acabando la gasolina. Señal de que las cosas van a cambiar, no es seguro que van a cambiar pero hay que estar alertas.
+
+4. Patron Cuña Creciente: Es lo mismo que el decreciente pero al reves.
+
+
 ---
 
 ## 04 — Velas Japonesas

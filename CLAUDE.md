@@ -63,7 +63,7 @@ con Y% de confianza". La decisión final siempre es humana.
 
 ## Fases del proyecto
 1. Ingesta de datos via APIs ← COMPLETADA
-2. Pipeline de limpieza y transformación ← SIGUIENTE
+2. Pipeline de limpieza y transformación ← EN CURSO
 3. EDA y minería de datos
 4. Feature engineering con estrategias del curso
 5. Modelos de ML + sistema de votación + metamodelo
