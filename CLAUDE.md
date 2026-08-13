@@ -102,6 +102,15 @@ Las estrategias finales se agregan a `config/strategies.yaml` con:
 - Timeframe (1min, 5min, 1hr, 1día)
 - Fuente (de qué curso viene)
 
+### Trades de expertos (WhatsApp Capitaria)
+Registro en estrategias/capitaria/trades_whatsapp/trades.yaml.
+Rol en la arquitectura: VALIDACIÓN, no entrenamiento (pocos datos).
+Usos: (1) votante adicional en la Capa 2 de votación, (2) fuente de
+ideas para features (la razón técnica de cada trade revela qué
+indicadores programar), (3) conjunto de prueba real para medir si
+nuestros modelos hubieran detectado los mismos trades.
+Meta del sistema: win rate >50% con ratio riesgo/beneficio 1:2.
+
 ## Estado actual del proyecto
 - Fase 1 COMPLETADA
 - Cripto (BTC/ETH/SOL): Binance, OHLCV completo desde 2017

@@ -1,0 +1,26 @@
+# Trades de expertos — Grupo WhatsApp Capitaria
+# Registro manual de señales. Cada trade se registra al recibirlo
+# y se actualiza cuando se resuelve.
+#
+# direccion: long (compra) | short (venta)
+# estado: abierto | cerrado | no_ejecutado
+# resultado: ganado | perdido | breakeven | pendiente
+#
+# El campo mensaje_original guarda el texto tal cual llegó al grupo.
+
+trades:
+  # EJEMPLO — borrar al registrar el primero real
+  - id: 1
+    fecha_senal: 2026-06-20
+    activo: EURUSD
+    direccion: long
+    precio_entrada: 1.0850
+    stop_loss: 1.0820
+    take_profit: 1.0910
+    ratio_riesgo_beneficio: "1:2"
+    razon: "Rompió resistencia con volumen, RSI saliendo de sobreventa"
+    mensaje_original: "texto copy-paste del whatsapp"
+    estado: abierto
+    resultado: pendiente
+    fecha_cierre: null
+    notas: ""
